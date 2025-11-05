@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Check - Halaman Utama</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #e6f2ff; /* Biru muda sebagai latar belakang */
+            color: #003366; /* Biru tua untuk teks utama */
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #005bb5; /* Biru kuat untuk header */
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 51, 102, 0.15);
+            padding: 2rem;
+            width: 350px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 51, 102, 0.25);
+        }
+
+        .card h2 {
+            color: #005bb5;
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .card p {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #007bff; /* Biru tombol */
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .auth-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+        }
+
+        .auth-section h2 {
+            color: #005bb5;
+            margin-bottom: 1rem;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .auth-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .auth-btn:hover {
+            background-color: #218838;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: #003366;
+            font-size: 0.9rem;
+            border-top: 1px solid #cce6ff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🏥 Health Check</h1>
+        <p>Periksa kesehatan Anda dengan cepat dan mudah</p>
+    </header>
+
+    <div class="container">
+        <div class="features">
+            <div class="card">
+                <h2>📊 Berat Badan & Tekanan Darah</h2>
+                <p>Hitung BMI dan periksa tekanan darah Anda untuk mengetahui kondisi kesehatan jantung dan berat badan ideal.</p>
+                <a href="/check-weight-blood" class="btn">Cek Sekarang</a>
+            </div>
+
+            <div class="card">
+                <h2>🫁 Kadar SpO₂</h2>
+                <p>Periksa kadar oksigen dalam darah (SpO₂) untuk memastikan fungsi pernapasan Anda dalam kondisi baik.</p>
+                <a href="/check-spo2" class="btn">Cek Sekarang</a>
+            </div>
+        </div>
+
+        <div class="auth-section">
+            <h2>🚀 Mulai Perjalanan Kesehatan Anda</h2>
+            <p>Daftar atau login untuk mengakses fitur lengkap pemeriksaan kesehatan</p>
+            <div class="auth-buttons">
+                <a href="/register" class="auth-btn">📝 Daftar Sekarang</a>
+                <a href="/login" class="auth-btn">🔐 Masuk</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Health Check App | Dibuat dengan ❤️ menggunakan Node.js, Express, dan EJS</p>
+    </footer>
+</body>
+</html>
