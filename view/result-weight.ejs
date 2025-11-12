@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Cek Berat Badan - Health Check</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Jika ada CSS di public/styles.css -->
+</head>
+<body>
+    <div class="container">
+        <h1>Hasil Cek Berat Badan</h1>
+        <div class="result-card">
+            <p><strong>Nama:</strong> <%= name %></p>
+            <p><strong>Usia:</strong> <%= age %> tahun</p>
+            <p><strong>BMI:</strong> <%= bmi %></p>
+            <p><strong>Kategori Berat Badan:</strong> <%= weightCategory %></p>
+        </div>
+        <div class="actions">
+            <a href="/check-weight" class="btn">Cek Lagi</a>
+            <a href="/halaman-utama" class="btn">Kembali ke Halaman Utama</a>
+        </div>
+    </div>
+</body>
+</html>

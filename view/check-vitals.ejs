@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pemeriksaan Kesehatan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #bde0fe, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #0078d4;
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 15px 0;
+    }
+
+    .card {
+      background: #fff;
+      margin-top: 30px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #0078d4;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #0078d4;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #005fa3;
+    }
+
+    footer {
+      margin-top: auto;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      padding: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🫁 Kadar SpO₂ dan Tekanan Darah</h1>
+  </header>
+
+  <div class="card">
+    <h2>Cek Tekanan darah dan kadar SpO2</h2>
+    <form action="/check-vitals" method="POST">
+      <label for="name">Nama Lengkap</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="age">Umur</label>
+      <input type="number" id="age" name="age" required>
+
+      <label for="systolic">Sistolik (mmHg)</label>
+      <input type="number" id="systolic" name="systolic" required>
+
+      <label for="diastolic">Diastolik (mmHg)</label>
+      <input type="number" id="diastolic" name="diastolic" required>
+
+      <label for="spo2">SpO2 (%)</label>
+      <input type="number" id="spo2" name="spo2" required>
+
+      <button type="submit">Kirim Data</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Pemeriksaan Kesehatan | Dibuat dengan ❤️</p>
+  </footer>
+</body>
+</html>

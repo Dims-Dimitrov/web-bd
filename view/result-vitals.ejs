@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Cek Tekanan Darah & SpO2 - Health Check</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Jika ada CSS di public/styles.css -->
+</head>
+<body>
+    <div class="container">
+        <h1>Hasil Cek Tekanan Darah & SpO2</h1>
+        <div class="result-card">
+            <p><strong>Nama:</strong> <%= name %></p>
+            <p><strong>Usia:</strong> <%= age %> tahun</p>
+            <h3>Tekanan Darah</h3>
+            <p><strong>Sistolik:</strong> <%= systolic %> mmHg</p>
+            <p><strong>Diastolik:</strong> <%= diastolic %> mmHg</p>
+            <p><strong>Kategori Tekanan Darah:</strong> <%= bloodCategory %></p>
+            <h3>SpO2 (Saturasi Oksigen)</h3>
+            <p><strong>SpO2:</strong> <%= spo2 %>%</p>
+            <p><strong>Kategori SpO2:</strong> <%= spo2Category %></p>
+        </div>
+        <div class="actions">
+            <a href="/check-vitals" class="btn">Cek Lagi</a>
+            <a href="/halaman-utama" class="btn">Kembali ke Halaman Utama</a>
+        </div>
+    </div>
+</body>
+</html>

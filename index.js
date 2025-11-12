@@ -182,62 +182,114 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// Route untuk input dan cek berat badan ideal + tekanan darah
-app.get('/check-weight-blood', (req, res) => {
-    res.render('check-weight-blood');
+// Function to determine BMI category based on age
+function getBMICategory(bmi, age) {
+    // Untuk anak-anak dan remaja (<18 tahun)
+    if (age < 18) {
+        // BMI persentil untuk anak-anak dan remaja (simplifikasi)
+        // Dalam aplikasi nyata, Anda akan menggunakan tabel persentil yang lebih akurat
+        if (bmi < 14) return 'Underweight (Kurus)';
+        else if (bmi < 18) return 'Normal';
+        else if (bmi < 22) return 'Overweight (Berlebih)';
+        else return 'Obese (Obesitas)';
+    }
+    // Untuk dewasa (18-65 tahun)
+    else if (age >= 18 && age <= 65) {
+        if (bmi < 18.5) return 'Underweight (Kurus)';
+        else if (bmi < 25) return 'Normal';
+        else if (bmi < 30) return 'Overweight (Berlebih)';
+        else return 'Obese (Obesitas)';
+    }
+    // Untuk lansia (>65 tahun)
+    else {
+        // Untuk lansia, sedikit penyesuaian pada kategori BMI
+        if (bmi < 22) return 'Underweight (Kurus)';
+        else if (bmi < 27) return 'Normal';
+        else if (bmi < 32) return 'Overweight (Berlebih)';
+        else return 'Obese (Obesitas)';
+    }
+}
+
+// Function to determine blood pressure category
+function getBloodPressureCategory(systolic, diastolic) {
+    if (systolic < 120 && diastolic < 80) return 'Normal';
+    else if (systolic < 130 && diastolic < 80) return 'Elevated (Tinggi)';
+    else if (systolic < 140 || diastolic < 90) return 'High Blood Pressure Stage 1 (Hipertensi Tingkat 1)';
+    else if (systolic < 180 || diastolic < 120) return 'High Blood Pressure Stage 2 (Hipertensi Tingkat 2)';
+    else return 'Hypertensive Crisis (Krisis Hipertensi - Segera cari bantuan medis)';
+}
+
+// Function to determine SpO2 category
+function getSpO2Category(spo2) {
+    if (spo2 >= 95) return 'Normal';
+    else if (spo2 >= 90) return 'Low (Perlu perhatian)';
+    else return 'Very Low (Segera konsultasi dokter)';
+}
+
+// Route untuk input dan cek berat badan ideal
+app.get('/check-weight', (req, res) => {
+    res.render('check-weight');
 });
 
-app.post('/check-weight-blood', (req, res) => {
-    const { name, age, height, weight, systolic, diastolic } = req.body;
+app.post('/check-weight', (req, res) => {
+    const { name, age, height, weight } = req.body;
     
-    // Hitung BMI dan kategori berat badan ideal
+    // Hitung BMI dan kategori berat badan ideal berdasarkan umur
     const heightM = height / 100;
     const bmi = (weight / (heightM * heightM)).toFixed(2);
-    let weightCategory = '';
-    if (bmi < 18.5) weightCategory = 'Underweight';
-    else if (bmi < 25) weightCategory = 'Normal';
-    else if (bmi < 30) weightCategory = 'Overweight';
-    else weightCategory = 'Obese';
-
-    // Kategori tekanan darah
-    let bloodCategory = '';
-    if (systolic < 120 && diastolic < 80) bloodCategory = 'Normal';
-    else if (systolic < 130 && diastolic < 80) bloodCategory = 'Elevated';
-    else if (systolic < 140 || diastolic < 90) bloodCategory = 'High Blood Pressure Stage 1';
-    else bloodCategory = 'High Blood Pressure Stage 2';
+    const weightCategory = getBMICategory(parseFloat(bmi), parseInt(age));
 
     // Simpan ke database
-    const sql = 'INSERT INTO health_data (name, age, height, weight, systolic, diastolic) VALUES (?, ?, ?, ?, ?, ?)';
-    db.query(sql, [name, age, height, weight, systolic, diastolic], (err) => {
-        if (err) throw err;
+    const sql = 'INSERT INTO weight_data (name, age, height, weight, bmi, weight_category) VALUES (?, ?, ?, ?, ?, ?)';
+    db.query(sql, [name, age, height, weight, bmi, weightCategory], (err) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.render('check-weight', { errors: [{ msg: 'Gagal menyimpan data' }] });
+        }
     });
 
     // Render hasil
-    res.render('result-weight-blood', { name, bmi, weightCategory, systolic, diastolic, bloodCategory });
+    res.render('result-weight', { 
+        name, 
+        age,
+        bmi, 
+        weightCategory
+    });
 });
 
-// Route untuk input dan cek SpO2
-app.get('/check-spo2', (req, res) => {
-    res.render('check-spo2');
+// Route untuk input dan cek tekanan darah dan SpO2
+app.get('/check-vitals', (req, res) => {
+    res.render('check-vitals');
 });
 
-app.post('/check-spo2', (req, res) => {
-    const { name, age, spo2 } = req.body;
+app.post('/check-vitals', (req, res) => {
+    const { name, age, systolic, diastolic, spo2 } = req.body;
+    
+    // Kategori tekanan darah
+    const bloodCategory = getBloodPressureCategory(parseInt(systolic), parseInt(diastolic));
     
     // Kategori SpO2
-    let spo2Category = '';
-    if (spo2 >= 95) spo2Category = 'Normal';
-    else if (spo2 >= 90) spo2Category = 'Low (Perlu perhatian)';
-    else spo2Category = 'Very Low (Segera konsultasi dokter)';
+    const spo2Category = getSpO2Category(parseInt(spo2));
 
     // Simpan ke database
-    const sql = 'INSERT INTO health_data (name, age, spo2) VALUES (?, ?, ?)';
-    db.query(sql, [name, age, spo2], (err) => {
-        if (err) throw err;
+    const sql = 'INSERT INTO vitals_data (name, age, systolic, diastolic, blood_category, spo2, spo2_category) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    db.query(sql, [name, age, systolic, diastolic, bloodCategory, spo2, spo2Category], (err) => {
+        if (err) {
+            console.error('Database error:', err);
+            return res.render('check-vitals', { errors: [{ msg: 'Gagal menyimpan data' }] });
+        }
     });
 
     // Render hasil
-    res.render('result-spo2', { name, spo2, spo2Category });
+    res.render('result-vitals', { 
+        name, 
+        age,
+        systolic, 
+        diastolic, 
+        bloodCategory,
+        spo2,
+        spo2Category
+    });
 });
 
 // Jalankan server

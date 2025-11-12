@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Berat Badan Ideal (BMI)</title>
+    <style>
+        /* ----------------------------
+           RESET & DASAR
+        ----------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #c9f1ff, #ffffff);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #0078d4;
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* ----------------------------
+           KARTU FORM
+        ----------------------------- */
+        .card {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            margin-top: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: #0078d4;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.4rem;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        /* ----------------------------
+           FORM INPUTS
+        ----------------------------- */
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #0078d4;
+            box-shadow: 0 0 5px rgba(0,120,212,0.3);
+            outline: none;
+        }
+
+        /* ----------------------------
+           BUTTON
+        ----------------------------- */
+        .btn {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+
+        .btn:hover {
+            background-color: #005fa3;
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        /* ----------------------------
+           ALERT / ERROR MESSAGE
+        ----------------------------- */
+        .alert {
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-danger {
+            background-color: #ffe5e5;
+            border-left: 6px solid #ff5c5c;
+            color: #b30000;
+        }
+
+        .alert ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+
+        /* ----------------------------
+           FOOTER
+        ----------------------------- */
+        footer {
+            margin-top: auto;
+            width: 100%;
+            text-align: center;
+            background-color: #f5f5f5;
+            padding: 1rem 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* ----------------------------
+           RESPONSIVE
+        ----------------------------- */
+        @media (max-width: 600px) {
+            .card-body {
+                padding: 1.2rem;
+            }
+
+            header h1 {
+                font-size: 1.4rem;
+            }
+
+            .card-header h2 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📊 Berat Badan</h1>
+    </header>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Cek Berat Badan Ideal (BMI)</h2>
+        </div>
+        <div class="card-body">
+            <!-- Menampilkan pesan error jika ada -->
+            <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        <% errors.forEach(function(error) { %>
+                            <li><%= error.msg %></li>
+                        <% }); %>
+                    </ul>
+                </div>
+            <% } %>
+
+            <form action="/check-weight" method="POST">
+                <label for="name" class="form-label">Nama Lengkap</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+
+                <label for="age" class="form-label">Umur</label>
+                <input type="number" class="form-control" id="age" name="age" required>
+
+                <label for="height" class="form-label">Tinggi Badan (cm)</label>
+                <input type="number" class="form-control" id="height" name="height" required>
+
+                <label for="weight" class="form-label">Berat Badan (kg)</label>
+                <input type="number" step="0.1" class="form-control" id="weight" name="weight" required>
+
+                <button type="submit" class="btn">Hitung BMI</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Health Check App | Dibuat dengan ❤️ menggunakan Node.js, Express, dan EJS</p>
+    </footer>
+</body>
+</html>
